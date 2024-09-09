@@ -6,9 +6,10 @@ const { JSDOM } = jsdom;
 
 
 var tihUrl = "https://www.tihiitb.org/"
-
+count = 1
 console.log("Web monitoring Started .......")
 setInterval(()=>{
+    console.log("checking...")
 monitorWeb(tihUrl)
 },300000)
 
