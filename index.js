@@ -20,7 +20,7 @@ function monitorWeb(url){
         listcount = dom.window.document.getElementById("Collapse-1dfff4466de520901cbe").children.item(0).children.item(1).children.item(0).children.length;
         firstValue = dom.window.document.getElementById("Collapse-1dfff4466de520901cbe").children.item(0).children.item(1).children.item(0).children.item(1).children.item(0).innerHTML
         
-        if(firstValue !== "Post-Doctoral Fellowship Program 2023-24 (1)" && listcount > 2){
+        if(firstValue !== "Post-Doctoral Fellowship Program 2023-24 (1)" || listcount > 2){
             sendMessage(getTextMessageInput())
            
         }
