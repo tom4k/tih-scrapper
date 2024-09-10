@@ -6,24 +6,29 @@ const { JSDOM } = jsdom;
 
 
 var tihUrl = "https://www.tihiitb.org/"
-count = 1
+msgSent = false
 console.log("Web monitoring Started .......")
-setInterval(()=>{
+const interval = setInterval(()=>{
     console.log("checking...")
-monitorWeb(tihUrl)
+    if(msgSent){
+        clearInterval(interval)
+    }
+    monitorWeb(tihUrl)
 },300000)
-
 
 function monitorWeb(url){
 
     axios.get(url).then((res)=>{
 
         const dom = new JSDOM(res.data) 
-        listcount = dom.window.document.getElementById("Collapse-1dfff4466de520901cbe").children.item(0).children.item(1).children.item(0).children.length;
-        firstValue = dom.window.document.getElementById("Collapse-1dfff4466de520901cbe").children.item(0).children.item(1).children.item(0).children.item(1).children.item(0).innerHTML
+        //console.log(Array.from(dom.window.document.getElementsByClassName("collapse")).at(-1).children.item(0).children.item(1).children.item(0).children.length)
+        listcount = Array.from(dom.window.document.getElementsByClassName("collapse")).at(-1).children.item(0).children.item(1).children.item(0).children.length;
+        firstValue = Array.from(dom.window.document.getElementsByClassName("collapse")).at(-1).children.item(0).children.item(1).children.item(0).children.item(1).children.item(0).innerHTML;
+   
         
         if(firstValue !== "Post-Doctoral Fellowship Program 2023-24 (1)" || listcount > 2){
             sendMessage(getTextMessageInput())
+            msgSent = true
            
         }
     })
